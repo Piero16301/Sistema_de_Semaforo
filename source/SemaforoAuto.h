@@ -1,7 +1,7 @@
 #ifndef SISTEMA_SEMAFORO_SEMAFOROAUTO_H
 #define SISTEMA_SEMAFORO_SEMAFOROAUTO_H
 
-class Boton;
+class SistemaSemaforo;
 
 class SemaforoAuto {
 private:
@@ -18,7 +18,7 @@ public:
 
     ~SemaforoAuto() = default;
 
-    friend class Boton;
+    friend class SistemaSemaforo;
 };
 
 #endif //SISTEMA_SEMAFORO_SEMAFOROAUTO_H

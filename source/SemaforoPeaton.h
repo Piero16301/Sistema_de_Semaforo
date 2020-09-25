@@ -3,7 +3,7 @@
 
 #include <zconf.h>
 
-class Boton;
+class SistemaSemaforo;
 
 class SemaforoPeaton {
 private:
@@ -20,7 +20,7 @@ public:
 
     ~SemaforoPeaton() = default;
 
-    friend class Boton;
+    friend class SistemaSemaforo;
 };
 
 #endif //SISTEMA_SEMAFORO_SEMAFOROPEATON_H
