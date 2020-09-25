@@ -1,8 +1,14 @@
 #include <iostream>
 
+#include "SemaforoAuto.h"
+#include "SemaforoPeaton.h"
+#include "Boton.h"
+
 using namespace std;
 
 int main() {
-    cout << "Hola" << endl;
+    SemaforoAuto semaforoAuto;
+    SemaforoPeaton semaforoPeaton;
+    Boton::oprimir(semaforoAuto, semaforoPeaton);
     return 0;
 }
