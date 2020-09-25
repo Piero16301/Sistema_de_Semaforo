@@ -1,0 +1,1 @@
+/usr/bin/c++  -lsfml-system -g   CMakeFiles/Sistema_Semaforo.dir/main.cpp.o CMakeFiles/Sistema_Semaforo.dir/SemaforoAuto.cpp.o CMakeFiles/Sistema_Semaforo.dir/SemaforoPeaton.cpp.o CMakeFiles/Sistema_Semaforo.dir/SensorLDR.cpp.o CMakeFiles/Sistema_Semaforo.dir/Boton.cpp.o  -o Sistema_Semaforo  -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window -lsfml-system 
