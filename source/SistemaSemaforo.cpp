@@ -14,6 +14,8 @@ void SistemaSemaforo::iniciarSistema() {
     int contadorFases = 0;
     bool botonOprimido = false;
 
+    sf::RectangleShape bordeAuto;
+
     sf::Font font;
     font.loadFromFile("../fonts/SFDigitalReadout-Heavy.ttf");
 

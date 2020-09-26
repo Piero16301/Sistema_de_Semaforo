@@ -16,6 +16,7 @@ private:
 
 protected:
     static void oprimirBoton(SemaforoAuto &sAuto, SemaforoPeaton &sPeaton, int &contadorFases);
+
     static void parpadearRojoPeaton(SemaforoPeaton &sPeaton);
     static void parpadearAmarilloAuto(SemaforoAuto &sAuto);
 
