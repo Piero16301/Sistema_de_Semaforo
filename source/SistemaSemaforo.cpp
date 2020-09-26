@@ -1,48 +1,70 @@
 #include "SistemaSemaforo.h"
 
 SistemaSemaforo::SistemaSemaforo() {
-    this->hora = 6;
+    this->hora = 14;
     this->minuto = 0;
 }
 
 void SistemaSemaforo::iniciarSistema() {
     SemaforoAuto semaforoAuto;
     SemaforoPeaton semaforoPeaton;
-    sf::RenderWindow window(sf::VideoMode(640, 480), "Sistema de semaforo");
+    sf::RenderWindow window(sf::VideoMode(700, 540), "Sistema de semaforo");
     window.setFramerateLimit(2);
-    float radio = 30;
+    float radio = 40;
     int contadorFases = 0;
     bool botonOprimido = false;
 
-    sf::RectangleShape bordeAuto;
+    sf::RectangleShape bordeAuto(sf::Vector2f(160,360));
+    bordeAuto.setFillColor(sf::Color::Black);
+    bordeAuto.setPosition(60,130);
+
+    sf::RectangleShape bordePeaton(sf::Vector2f(160,260));
+    bordePeaton.setFillColor(sf::Color::Black);
+    bordePeaton.setPosition(330,130);
+
+    sf::Texture tAuto;
+    tAuto.create(100, 100);
+    tAuto.loadFromFile("../images/car_icon.png");
+    sf::Sprite iconoAuto;
+    iconoAuto.setTexture(tAuto);
+    iconoAuto.setPosition(100, 30);
+    iconoAuto.setScale(0.35, 0.35);
+
+    sf::Texture tPeaton;
+    tPeaton.create(100, 100);
+    tPeaton.loadFromFile("../images/person_icon.png");
+    sf::Sprite iconoPeaton;
+    iconoPeaton.setTexture(tPeaton);
+    iconoPeaton.setPosition(355, 10);
+    iconoPeaton.setScale(0.09, 0.09);
 
     sf::Font font;
     font.loadFromFile("../fonts/SFDigitalReadout-Heavy.ttf");
 
     sf::Text text;
     text.setFont(font);
-    text.setPosition(500, 50);
-    text.setCharacterSize(30);
-    text.setColor(sf::Color::White);
+    text.setPosition(585, 5);
+    text.setCharacterSize(50);
+    text.setColor(sf::Color::Black);
 
     sf::CircleShape rojaAuto(radio);
-    rojaAuto.setPosition(100, 100);
+    rojaAuto.setPosition(100, 170);
     rojaAuto.setFillColor(sf::Color::Red);
 
     sf::CircleShape amarillaAuto(radio);
-    amarillaAuto.setPosition(100, 200);
+    amarillaAuto.setPosition(100, 270);
     amarillaAuto.setFillColor(sf::Color::Yellow);
 
     sf::CircleShape verdeAuto(radio);
-    verdeAuto.setPosition(100, 300);
+    verdeAuto.setPosition(100, 370);
     verdeAuto.setFillColor(sf::Color::Green);
 
     sf::CircleShape rojaPeaton(radio);
-    rojaPeaton.setPosition(300, 100);
+    rojaPeaton.setPosition(370, 170);
     rojaPeaton.setFillColor(sf::Color::Red);
 
     sf::CircleShape verdePeaton(radio);
-    verdePeaton.setPosition(300, 200);
+    verdePeaton.setPosition(370, 270);
     verdePeaton.setFillColor(sf::Color::Green);
 
     while (window.isOpen()) {
@@ -60,8 +82,17 @@ void SistemaSemaforo::iniciarSistema() {
             }
         }
 
+        if (botonOprimido) {
+            oprimirBoton(semaforoAuto, semaforoPeaton, contadorFases);
+            contadorFases++;
+        }
+        if (contadorFases == 0) {
+            botonOprimido = false;
+        }
+
         if (hora >= 18 || hora < 6) {
-            //std::cout << "Entrando modo hibernacion" << std::endl;
+            botonOprimido = false;
+            contadorFases = 0;
             parpadearRojoPeaton(semaforoPeaton);
             parpadearAmarilloAuto(semaforoAuto);
         } else {
@@ -71,22 +102,20 @@ void SistemaSemaforo::iniciarSistema() {
             }
         }
 
-        if (botonOprimido) {
-            oprimirBoton(semaforoAuto, semaforoPeaton, contadorFases);
-            contadorFases++;
-        }
-        if (contadorFases == 0) {
-            botonOprimido = false;
-        }
+        window.clear(sf::Color::White);
 
-        window.clear(sf::Color::Black);
+        window.draw(bordeAuto);
+        window.draw(bordePeaton);
 
-        if (semaforoAuto.luzRoja) window.draw(rojaAuto);
-        if (semaforoAuto.luzAmarilla) window.draw(amarillaAuto);
-        if (semaforoAuto.luzVerde) window.draw(verdeAuto);
+        window.draw(iconoPeaton);
+        window.draw(iconoAuto);
 
-        if (semaforoPeaton.luzRoja) window.draw(rojaPeaton);
-        if (semaforoPeaton.luzVerde) window.draw(verdePeaton);
+        if (semaforoAuto.luzRoja)       window.draw(rojaAuto);
+        if (semaforoAuto.luzAmarilla)   window.draw(amarillaAuto);
+        if (semaforoAuto.luzVerde)      window.draw(verdeAuto);
+
+        if (semaforoPeaton.luzRoja)     window.draw(rojaPeaton);
+        if (semaforoPeaton.luzVerde)    window.draw(verdePeaton);
 
         window.draw(text);
 
