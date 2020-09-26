@@ -16,6 +16,8 @@ public:
     void mostrarLuzAmarilla();
     void mostrarLuzVerde();
 
+    void apagarLuzAmarilla();
+
     ~SemaforoAuto() = default;
 
     friend class SistemaSemaforo;

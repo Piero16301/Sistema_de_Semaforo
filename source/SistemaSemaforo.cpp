@@ -14,6 +14,15 @@ void SistemaSemaforo::iniciarSistema() {
     int contadorFases = 0;
     bool botonOprimido = false;
 
+    sf::Font font;
+    font.loadFromFile("../fonts/SFDigitalReadout-Heavy.ttf");
+
+    sf::Text text;
+    text.setFont(font);
+    text.setPosition(500, 50);
+    text.setCharacterSize(30);
+    text.setColor(sf::Color::White);
+
     sf::CircleShape rojaAuto(radio);
     rojaAuto.setPosition(100, 100);
     rojaAuto.setFillColor(sf::Color::Red);
@@ -35,16 +44,28 @@ void SistemaSemaforo::iniciarSistema() {
     verdePeaton.setFillColor(sf::Color::Green);
 
     while (window.isOpen()) {
+        text.setString((hora<10?"0":"") + std::to_string(hora) + ":" + (minuto<10?"0":"") + std::to_string(minuto));
         sf::Event event{};
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
             if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::Enter) {
+                if (event.key.code == sf::Keyboard::Enter && (hora < 18 && hora >= 6)) {
                     std::cout << "Oprimiendo boton" << std::endl;
                     botonOprimido = true;
                 }
+            }
+        }
+
+        if (hora >= 18 || hora < 6) {
+            //std::cout << "Entrando modo hibernacion" << std::endl;
+            parpadearRojoPeaton(semaforoPeaton);
+            parpadearAmarilloAuto(semaforoAuto);
+        } else {
+            if (!botonOprimido) {
+                semaforoPeaton.mostrarLuzRoja();
+                semaforoAuto.mostrarLuzVerde();
             }
         }
 
@@ -65,7 +86,18 @@ void SistemaSemaforo::iniciarSistema() {
         if (semaforoPeaton.luzRoja) window.draw(rojaPeaton);
         if (semaforoPeaton.luzVerde) window.draw(verdePeaton);
 
+        window.draw(text);
+
         window.display();
+
+        minuto += 15;
+        if (minuto == 60) {
+            hora++;
+            minuto = 0;
+        }
+        if (hora == 24) {
+            hora = 0;
+        }
     }
 }
 
@@ -80,31 +112,12 @@ void SistemaSemaforo::oprimirBoton(SemaforoAuto &sAuto, SemaforoPeaton &sPeaton,
             sAuto.mostrarLuzRoja();
             sPeaton.mostrarLuzVerde();
             std::cout << "Cierra para los carros y abre para los peatones" << std::endl;
+            std::cout << "Mantiene estado para que pasen los peatones" << std::endl;
             break;
         }
         case 18: {
-            std::cout << "Mantiene estado para que pasen los peatones" << std::endl;
+            std::cout << "Parpadea luz roja de los peatones" << std::endl;
             sPeaton.mostrarLuzRoja();
-            break;
-        }
-        case 19: {
-            sPeaton.apagarLuzRoja();
-            break;
-        }
-        case 20: {
-            sPeaton.mostrarLuzRoja();
-            break;
-        }
-        case 21: {
-            sPeaton.apagarLuzRoja();
-            break;
-        }
-        case 22: {
-            sPeaton.mostrarLuzRoja();
-            break;
-        }
-        case 23: {
-            sPeaton.apagarLuzRoja();
             break;
         }
         case 24: {
@@ -118,5 +131,24 @@ void SistemaSemaforo::oprimirBoton(SemaforoAuto &sAuto, SemaforoPeaton &sPeaton,
             break;
         }
         default: {}
+    }
+    if (contadorFases > 18 && contadorFases < 24) {
+        parpadearRojoPeaton(sPeaton);
+    }
+}
+
+void SistemaSemaforo::parpadearRojoPeaton(SemaforoPeaton &sPeaton) {
+    if (sPeaton.luzRoja) {
+        sPeaton.apagarLuzRoja();
+    } else {
+        sPeaton.mostrarLuzRoja();
+    }
+}
+
+void SistemaSemaforo::parpadearAmarilloAuto(SemaforoAuto &sAuto) {
+    if (sAuto.luzAmarilla) {
+        sAuto.apagarLuzAmarilla();
+    } else {
+        sAuto.mostrarLuzAmarilla();
     }
 }

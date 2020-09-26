@@ -23,3 +23,9 @@ void SemaforoAuto::mostrarLuzVerde() {
     this->luzAmarilla = false;
     this->luzVerde = true;
 }
+
+void SemaforoAuto::apagarLuzAmarilla() {
+    this->luzRoja = false;
+    this->luzAmarilla = false;
+    this->luzVerde = false;
+}

@@ -3,11 +3,9 @@
 using namespace std;
 
 int main() {
-    /*SemaforoAuto semaforoAuto;
-    SemaforoPeaton semaforoPeaton;
-    Boton::oprimir(semaforoAuto, semaforoPeaton);*/
 
-    SistemaSemaforo::iniciarSistema();
+    SistemaSemaforo sistemaSemaforo;
+    sistemaSemaforo.iniciarSistema();
 
     return 0;
 }
