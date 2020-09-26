@@ -1,7 +1,7 @@
 #include "SistemaSemaforo.h"
 
 SistemaSemaforo::SistemaSemaforo() {
-    this->hora = 14;
+    this->hora = 6;
     this->minuto = 0;
 }
 
@@ -21,6 +21,10 @@ void SistemaSemaforo::iniciarSistema() {
     sf::RectangleShape bordePeaton(sf::Vector2f(160,260));
     bordePeaton.setFillColor(sf::Color::Black);
     bordePeaton.setPosition(330,130);
+
+    sf::RectangleShape bordeReloj(sf::Vector2f(150,80));
+    bordeReloj.setFillColor(sf::Color::Black);
+    bordeReloj.setPosition(560,0);
 
     sf::Texture tAuto;
     tAuto.create(100, 100);
@@ -45,7 +49,7 @@ void SistemaSemaforo::iniciarSistema() {
     text.setFont(font);
     text.setPosition(585, 5);
     text.setCharacterSize(50);
-    text.setColor(sf::Color::Black);
+    text.setColor(sf::Color::White);
 
     sf::CircleShape rojaAuto(radio);
     rojaAuto.setPosition(100, 170);
@@ -117,6 +121,7 @@ void SistemaSemaforo::iniciarSistema() {
         if (semaforoPeaton.luzRoja)     window.draw(rojaPeaton);
         if (semaforoPeaton.luzVerde)    window.draw(verdePeaton);
 
+        window.draw(bordeReloj);
         window.draw(text);
 
         window.display();
