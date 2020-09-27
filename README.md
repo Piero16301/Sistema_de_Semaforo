@@ -1,4 +1,4 @@
-# Sistema de Semáforos
+# Sistema de semáforos
 Concepto de un sistema de semáforo implementado en C++, el cual cuenta con un semáforo con tres luces para los autos y un semáforo de dos luces para los peatones.
 
 ## Instalacion
