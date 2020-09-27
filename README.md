@@ -15,7 +15,7 @@ Se debe instalar la librería de SFML usando el siguiente comando.
 sudo apt-get install libsfml-dev
 ```
 
-## Ejecución
+## Compilación y ejecución
 ### Windows
 Es necesario tener instalado [`CLion`](https://www.jetbrains.com/es-es/clion/) y desde allí, abrir la carpeta source.
 CLion detectará el archivo `CMakeLists.txt` y estará listo para ejecutarse.
@@ -34,4 +34,27 @@ De no ser así, también puede ser compilado y ejecutado por consola, siguiendo 
 De esta manera, se va a abrir la ventana gráfica y se va a poder hacer uso del software.
 
 ## Funcionalidad
+Cuando se abre la ventana gráfica al momento de ejecutar el programa, aparecerán 2 semáforos, el de la izquierda correspondiente a los autos y el de la derecha a los peatones.
 
+También, en la parte superior derecha, se encuentra un reloj que va a estar inicializado a las 06.00 y va a comenzar a correr a una velocidad de 30 min/seg, más que todo para poder ver las demás funcionalidades.
+
+Al principio, el semáforo de los autos se va a encontrar con la luz verde encendida, y el de los peatones con la luz roja encendida. Pero si se presiona la tecla `Enter`, se van a ejecutar los siguientes procedimientos.
+
+* Espera 2 segundos.
+* Muestra la luz amarilla para los carros por 2 segundos.
+* Cierra para los carros y simultáneamente abre para los peatones.
+* Mantiene este estado por 5 segundos.
+* Se activa Luz roja intermitente para los peatones durante 3 segundos.
+* El semáforo cierra para los peatones y, simultáneamente, abre para los carros (estado inicial).
+
+Los procedimientos se pueden ver en la siguiente animación.
+
+![](images/funcionalidad_boton.gif)
+
+Los procedimientos anteriormente mencionados solamente se pueden ejecutar en los rangos de horas de 06:00 a 18:00.
+
+Fuera de estas horas, ambos semáforos van a entrar en un estado de hibernación. En este estado, el semáforo de los carros va a parpadear la luz amarilla, y el semáforo de los peatones va a parpadear la luz roja.
+
+Este estado de hibernación se muestra en la siguiente animación.
+
+![](images/funcionalidad_hibernacion.gif)
