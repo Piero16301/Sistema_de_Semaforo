@@ -28,7 +28,7 @@ void SistemaSemaforo::iniciarSistema() {
 
     sf::Texture tAuto;
     tAuto.create(100, 100);
-    tAuto.loadFromFile("../images/car_icon.png");
+    tAuto.loadFromFile("images/car_icon.png");
     sf::Sprite iconoAuto;
     iconoAuto.setTexture(tAuto);
     iconoAuto.setPosition(100, 30);
@@ -36,14 +36,14 @@ void SistemaSemaforo::iniciarSistema() {
 
     sf::Texture tPeaton;
     tPeaton.create(100, 100);
-    tPeaton.loadFromFile("../images/person_icon.png");
+    tPeaton.loadFromFile("images/person_icon.png");
     sf::Sprite iconoPeaton;
     iconoPeaton.setTexture(tPeaton);
     iconoPeaton.setPosition(355, 10);
     iconoPeaton.setScale(0.09, 0.09);
 
     sf::Font font;
-    font.loadFromFile("../fonts/SFDigitalReadout-Heavy.ttf");
+    font.loadFromFile("fonts/SFDigitalReadout-Heavy.ttf");
 
     sf::Text text;
     text.setFont(font);
